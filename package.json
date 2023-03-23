@@ -1,0 +1,18 @@
+{
+  "name": "node-examole",
+  "version": "1.0.0",
+  "description": "A node js project",
+  "main": "add.js",
+  "scripts": {
+    "start": "nodemon add.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "CoderMahipal",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
