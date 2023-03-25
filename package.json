@@ -4,7 +4,7 @@
   "description": "A node js project",
   "main": "add.js",
   "scripts": {
-    "start": "nodemon add.js",
+    "start": "nodemon http.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "CoderMahipal",
@@ -13,6 +13,7 @@
     "express": "^4.18.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.22"
+    "nodemon": "^2.0.22",
+    "prettier": "2.8.6"
   }
 }
