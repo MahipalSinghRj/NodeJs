@@ -9,12 +9,10 @@ const server = http.createServer((req, res) => {
   console.log(req.url, req.method);
 
   if (req.url.startsWith("/product")) {
-    const id = req.url.split('/')[2];
+    const id = req.url.split("/")[2];
     console.log("ID is:", id);
-    //const product1 = data.products;
-    //console.log("Products is:", product1);
-    const product = product1.find(p => p.id === (+id));
-    console.log("Product is:",product);
+    const product = product1.find((p) => p.id === +id);
+    console.log("Product is:", product);
     res.setHeader("content-Type", "text/html");
     const modifiedIndex = index
       .replace("**rating**", product.rating)
@@ -42,4 +40,4 @@ const server = http.createServer((req, res) => {
 
 console.log("server started 1");
 
-server.listen(8080);
+//server.listen(8080);

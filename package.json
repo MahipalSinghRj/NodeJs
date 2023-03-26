@@ -4,13 +4,14 @@
   "description": "A node js project",
   "main": "add.js",
   "scripts": {
-    "start": "nodemon http.js",
+    "start": "nodemon indexForExpress.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "CoderMahipal",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.22",
