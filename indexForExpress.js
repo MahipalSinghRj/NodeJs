@@ -5,63 +5,86 @@ const data = JSON.parse(fs.readFileSync("data.json", "utf-8"));
 const products = data.products;
 
 //To create server with expreee
-
 const express = require("express");
 //Morgan is a third party middleware
 const morgan = require("morgan");
 
 const server = express();
 
-
-
 //Body parser
 server.use(express.json());
-//server.use(express.urlencoded());
-//server.use(morgan('dev'));
-server.use(morgan('default'));
+server.use(morgan("default"));
 server.use(express.static("public"));
 
+//API _Endpoint -Routes
+//Products
+//In our case the base url is http://localhost:8080 + api is products
+//API ROOT, base URL, google.com/api/v2/ +.......
 
-// server.use("/", (req, res, next) => {
-//   console.log(
-//     req.method,
-//     req.ip,
-//     req.hostname,
-//     new Date(),
-//     req.get("USer-Agent")
-//   );
-//   next();
-// });
+//Create POST /products
+server.post("/products", (req, res) => {
+  console.log(req.body);
+  products.push(req.body);
+  res.json(req.body);
+});
 
-const auth = (req, res, next) => {
-//   console.log(req.method);
-//   if (req.body.password == "123") {
-//     next();
-//   } else {
-//     res.sendStatus(401);
-//   }
-next();
-};
+//Read GET /produts/:id
+server.get("/products/:id", (req, res) => {
+  console.log(req.params);
+  const id = +req.params.id;
+  const product = products.find((p) => p.id === +id);
+  res.json(product);
+});
 
-//server.use(auth);
+//Update PUT /produts/:id
+server.put("/products/:id", (req, res) => {
+  console.log(req.params);
+  const id = +req.params.id;
+  const productIndex = products.findIndex((p) => p.id === +id);
+ products.splice(productIndex, 1, { ...req.body,id:id });
+  res.status(201).json( );
+});
 
-server.get("/product/:id", auth, (req, res) => {
+//Update API PATCH /produts/:id
+server.patch("/products/:id", (req, res) => {
     console.log(req.params);
-  res.json({ type: "GET" });
+    const id = +req.params.id;
+    const productIndex = products.findIndex((p) => p.id === +id);
+    const product=products[productIndex];
+    products.splice(productIndex, 1, {...product,...req.body});
+    res.status(201).json( );
+  });
+
+
+
+  //Delete DELETE /produts/:id
+server.delete("/products/:id", (req, res) => {
+    console.log(req.params);
+    const id = +req.params.id;
+    const productIndex = products.findIndex((p) => p.id === +id);
+    const product=products[productIndex];
+   products.splice(productIndex, 1);
+    res.status(201).json( product);
+  });
+
+//Read GET /produts
+server.get("/products", (req, res) => {
+  console.log(req.params);
+  res.json(products);
 });
-server.post("/", auth, (req, res) => {
-  res.json({ type: "POST" });
-});
-server.put("/", (req, res) => {
-  res.json({ type: "PUT" });
-});
-server.delete("/", (req, res) => {
-  res.json({ type: "DELETE" });
-});
-server.patch("/", (req, res) => {
-  res.json({ type: "PATCH" });
+//Read GET /produts/:id
+server.get("/products/:id", (req, res) => {
+  console.log(req.params);
+  //String id to convert in numaric id then put + sign
+  const id = +req.params.id;
+  const product = products.find((p) => p.id === +id);
+
+  res.json(product);
 });
 
+ 
+ 
+//To send Files in response
 server.get("/", (req, res) => {
   //res.send('Hello')
   //const filePath=path.join('C:/Users/Softserv.mahipal/Desktop/nodejstutorial/data.json')
